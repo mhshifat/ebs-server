@@ -51,8 +51,7 @@ var server = new _graphqlYoga.GraphQLServer({
 });
 
 server.start({
-  port: process.env.PORT || 5000,
-  endpoint: "/graphql"
+  port: process.env.PORT || 5000
 }, function () {
   console.log("==> The server is running on http://localhost:5000");
 });

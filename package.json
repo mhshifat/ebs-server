@@ -5,7 +5,12 @@
   "main": "dist/server",
   "scripts": {
     "start": "node dist/server",
-    "serve": "nodemon --exec babel-node src/server"
+    "serve": "nodemon --exec babel-node src/server",
+    "build": "babel src -d dist"
+  },
+  "engines": {
+    "node": "v10.9.0",
+    "npm": "6.9.0"
   },
   "keywords": [],
   "author": "",
