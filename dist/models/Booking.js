@@ -1,29 +1,29 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _mongoose = require("mongoose");
+var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+// Import Dependencies
 // Creating a Schema
-var bookingSchema = new _mongoose2.default.Schema({
+var bookingSchema = new _mongoose["default"].Schema({
   user: {
-    type: _mongoose2.default.Schema.Types.ObjectId,
+    type: _mongoose["default"].Schema.Types.ObjectId,
     ref: "User"
   },
   event: {
-    type: _mongoose2.default.Schema.Types.ObjectId,
+    type: _mongoose["default"].Schema.Types.ObjectId,
     ref: "Event"
   }
 }, {
   timestamps: true
-});
+}); // Export Model
 
-// Export Model
-// Import Dependencies
-exports.default = _mongoose2.default.model("Booking", bookingSchema);
+var _default = _mongoose["default"].model("Booking", bookingSchema);
+
+exports["default"] = _default;

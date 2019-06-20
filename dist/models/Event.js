@@ -1,17 +1,17 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _mongoose = require("mongoose");
+var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+// Import Dependencies
 // Creating a Schema
-var eventSchema = new _mongoose2.default.Schema({
+var eventSchema = new _mongoose["default"].Schema({
   name: {
     type: String,
     required: [true, "Event name is required!"],
@@ -33,17 +33,17 @@ var eventSchema = new _mongoose2.default.Schema({
     required: [true, "Event date is required!"]
   },
   owner: {
-    type: _mongoose2.default.Schema.Types.ObjectId,
+    type: _mongoose["default"].Schema.Types.ObjectId,
     ref: "User"
   },
   bookedByUsers: [{
-    type: _mongoose2.default.Schema.Types.ObjectId,
+    type: _mongoose["default"].Schema.Types.ObjectId,
     ref: "User"
   }]
 }, {
   timestamps: true
-});
+}); // Export Model
 
-// Export Model
-// Import Dependencies
-exports.default = _mongoose2.default.model("Event", eventSchema);
+var _default = _mongoose["default"].model("Event", eventSchema);
+
+exports["default"] = _default;
