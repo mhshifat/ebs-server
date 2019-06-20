@@ -24,6 +24,7 @@
     "dotenv": "^8.0.0"
   },
   "dependencies": {
+    "@babel/core": "^7.4.5",
     "@babel/runtime": "^7.4.5",
     "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.18.0",
