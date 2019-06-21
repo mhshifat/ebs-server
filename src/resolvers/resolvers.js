@@ -12,6 +12,7 @@ export default {
       __,
       { models: { Event, Booking }, authenticatedUser }
     ) => {
+      if (!authenticatedUser) throw new Error("Authenticated required!");
       const bookedEvents = await Booking.find({
         user: authenticatedUser.id
       });
@@ -144,7 +145,10 @@ export default {
     ) => {
       try {
         if (!authenticatedUser) throw new Error("Authenticated required!");
-        const isBookingExist = await Booking.findOne({ event: eventId });
+        const isBookingExist = await Booking.findOne({
+          event: eventId,
+          user: authenticatedUser.id
+        });
         if (isBookingExist) {
           return {
             success: false,
@@ -219,8 +223,12 @@ export default {
           };
         }
         const findEvent = await Event.findById(eventId);
-        await Booking.findOneAndDelete({ event: eventId });
-        return { success: true, event: findEvent };
+        const deletedBooking = await Booking.findOneAndDelete({
+          event: eventId
+        });
+        if (deletedBooking) {
+          return { success: true, event: findEvent };
+        }
       } catch (err) {
         console.log(err);
         return {

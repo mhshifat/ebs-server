@@ -71,29 +71,38 @@ var _default = {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _ref2$models = _ref2.models, Event = _ref2$models.Event, Booking = _ref2$models.Booking, authenticatedUser = _ref2.authenticatedUser;
-                _context2.next = 3;
+
+                if (authenticatedUser) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                throw new Error("Authenticated required!");
+
+              case 3:
+                _context2.next = 5;
                 return Booking.find({
                   user: authenticatedUser.id
                 });
 
-              case 3:
+              case 5:
                 bookedEvents = _context2.sent;
                 bookedEventsList = bookedEvents.reduce(function (acc, val) {
                   acc.push(val.event);
                   return acc;
                 }, []);
-                _context2.next = 7;
+                _context2.next = 9;
                 return Event.find({
                   _id: {
                     $nin: bookedEventsList
                   }
                 });
 
-              case 7:
+              case 9:
                 events = _context2.sent;
                 return _context2.abrupt("return", events);
 
-              case 9:
+              case 11:
               case "end":
                 return _context2.stop();
             }
@@ -400,7 +409,8 @@ var _default = {
               case 5:
                 _context7.next = 7;
                 return Booking.findOne({
-                  event: eventId
+                  event: eventId,
+                  user: authenticatedUser.id
                 });
 
               case 7:
@@ -495,7 +505,7 @@ var _default = {
       var _cancelBooking = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee8(_, _ref11, _ref12) {
-        var eventId, _ref12$models, Booking, Event, authenticatedUser, isBookingExist, findEvent;
+        var eventId, _ref12$models, Booking, Event, authenticatedUser, isBookingExist, findEvent, deletedBooking;
 
         return _regenerator["default"].wrap(function _callee8$(_context8) {
           while (1) {
@@ -547,13 +557,24 @@ var _default = {
                 });
 
               case 15:
+                deletedBooking = _context8.sent;
+
+                if (!deletedBooking) {
+                  _context8.next = 18;
+                  break;
+                }
+
                 return _context8.abrupt("return", {
                   success: true,
                   event: findEvent
                 });
 
               case 18:
-                _context8.prev = 18;
+                _context8.next = 24;
+                break;
+
+              case 20:
+                _context8.prev = 20;
                 _context8.t0 = _context8["catch"](2);
                 console.log(_context8.t0);
                 return _context8.abrupt("return", {
@@ -564,12 +585,12 @@ var _default = {
                   }]
                 });
 
-              case 22:
+              case 24:
               case "end":
                 return _context8.stop();
             }
           }
-        }, _callee8, null, [[2, 18]]);
+        }, _callee8, null, [[2, 20]]);
       }));
 
       function cancelBooking(_x22, _x23, _x24) {
